@@ -19,4 +19,16 @@ public class SignUpPage extends BasePage{
     public SignUpPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
+
+    public WebElement getName() {
+        return name;
+    }
+
+    public WebElement getEmail() {
+        return email;
+    }
+
+    public WebElement getPassword() {
+        return password;
+    }
 }
