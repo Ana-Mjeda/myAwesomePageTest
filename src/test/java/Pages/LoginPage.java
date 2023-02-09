@@ -16,7 +16,8 @@ public class LoginPage extends BasePage{
     private WebElement loginButton;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]/ul/li")
-    private WebElement userError;
+    private WebElement loginErrorMessage;
+
 
     public LoginPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -30,8 +31,8 @@ public class LoginPage extends BasePage{
         return password;
     }
 
-    public WebElement getUserError() {
-        return userError;
+    public WebElement getLoginErrorMessage() {
+        return loginErrorMessage;
     }
 
     public void loginForm(String email, String password){
