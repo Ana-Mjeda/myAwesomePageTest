@@ -59,4 +59,12 @@ public class LoginTest extends BaseTest{
         Assert.assertEquals(loginPage.getLoginErrorMessage().getText(), "Wrong password");
         Assert.assertTrue(driver.getCurrentUrl().contains("login"));
     }
+    @Test
+    public void login() throws InterruptedException {
+        String email = "admin@admin.com";
+        String password = "12345";
+        loginPage.loginForm(email, password);
+        Thread.sleep(2000);
+        Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
+    }
 }
