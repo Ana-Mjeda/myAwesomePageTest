@@ -2,6 +2,8 @@ package Tests;
 
 import Pages.HomePage;
 import Pages.LoginPage;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
@@ -39,6 +41,12 @@ public class LoginTest extends BaseTest{
 
     @Test
     public void checkUserDoesNotExistsError(){
+        String email = faker.internet().safeEmailAddress();
+        String password = faker.internet().password();
+        loginPage.loginForm(email, password);
 
+        driverWait.until(ExpectedConditions.visibilityOf(loginPage.getUserError()));
+        Assert.assertEquals(loginPage.getUserError().getText(), "User does not exists");
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
     }
 }
