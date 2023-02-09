@@ -14,8 +14,9 @@ public class BaseTest {
 
     protected WebDriver driver;
     protected WebDriverWait driverWait;
-
     protected Faker faker;
+
+    protected String baseURL = "https://vue-demo.daniel-avellaneda.com/";
 
     @BeforeClass
     public void beforeClass() {

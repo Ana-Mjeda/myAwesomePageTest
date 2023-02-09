@@ -2,6 +2,7 @@ package Tests;
 
 import Pages.HomePage;
 import Pages.LoginPage;
+import com.github.dockerjava.api.command.PullImageCmd;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
@@ -66,5 +67,17 @@ public class LoginTest extends BaseTest{
         loginPage.loginForm(email, password);
         Thread.sleep(2000);
         Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
+    }
+
+    @Test()
+    public void logout() throws InterruptedException {
+        String email = "admin@admin.com";
+        String password = "12345";
+        loginPage.loginForm(email, password);
+
+        Assert.assertTrue(loginPage.isLogoutButtonVisible());
+        loginPage.clickLogoutButton();
+        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
+        driver.get("https://vue-demo.daniel-avellaneda.com/home");
     }
 }
