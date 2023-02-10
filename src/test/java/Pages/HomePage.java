@@ -16,12 +16,13 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"app\"]/div[4]/div/div/div[1]")
     private WebElement verifyAccountPopUp;
 
+    @FindBy (xpath = "//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]/span")
+    private WebElement adminButton;
+    @FindBy (xpath = "//*[@id=\"list-item-117\"]")
+    private WebElement citiesButton;
+
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
-    }
-
-    public WebElement getLoginButton() {
-        return loginButton;
     }
 
     public void clickLogin() {
@@ -35,4 +36,13 @@ public class HomePage extends BasePage {
     public WebElement getVerifyAccountPopUp() {
         return verifyAccountPopUp;
     }
+
+    public void clickAdminButton() {
+        adminButton.click();
+    }
+
+    public void clickCitiesButton() {
+        citiesButton.click();
+    }
+
 }
