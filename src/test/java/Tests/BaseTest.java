@@ -14,8 +14,11 @@ import java.time.Duration;
 public class BaseTest {
 
     protected WebDriver driver;
+
     protected WebDriverWait driverWait;
+
     protected Faker faker;
+
     protected HomePage homePage;
 
     protected String baseURL = "https://vue-demo.daniel-avellaneda.com/";

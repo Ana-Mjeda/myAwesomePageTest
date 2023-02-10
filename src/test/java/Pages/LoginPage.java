@@ -5,11 +5,12 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class LoginPage extends BasePage{
+public class LoginPage extends BasePage {
 
     @FindBy(id = "email")
     private WebElement email;
-    @FindBy (id = "password")
+
+    @FindBy(id = "password")
     private WebElement password;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div/main/div/div[2]/div/div/div[3]/span/form/div/div[3]/button")
@@ -37,7 +38,7 @@ public class LoginPage extends BasePage{
         return loginErrorMessage;
     }
 
-    public void loginForm(String email, String password){
+    public void loginForm(String email, String password) {
         this.email.clear();
         this.email.sendKeys(email);
 
@@ -49,7 +50,8 @@ public class LoginPage extends BasePage{
     public boolean isLogoutButtonVisible() {
         return logoutButton.isDisplayed();
     }
-    public void clickLogoutButton(){
+
+    public void clickLogoutButton() {
         logoutButton.click();
     }
 }

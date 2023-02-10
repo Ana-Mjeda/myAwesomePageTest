@@ -1,15 +1,13 @@
 package Tests;
 
-import Pages.HomePage;
 import Pages.LoginPage;
-import com.github.dockerjava.api.command.PullImageCmd;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class LoginTest extends BaseTest{
+public class LoginTest extends BaseTest {
 
     private LoginPage loginPage;
 
@@ -26,8 +24,9 @@ public class LoginTest extends BaseTest{
         super.beforeMethod();
         homePage.clickLogin();
     }
+
     @Test
-    public void loginURL(){
+    public void loginURL() {
         Assert.assertTrue(driver.getCurrentUrl().contains("login"));
     }
 
@@ -38,7 +37,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void userDoesNotExistsError(){
+    public void userDoesNotExistsError() {
         String email = faker.internet().safeEmailAddress();
         String password = faker.internet().password();
         loginPage.loginForm(email, password);
@@ -49,7 +48,7 @@ public class LoginTest extends BaseTest{
     }
 
     @Test
-    public void wrongPasswordError(){
+    public void wrongPasswordError() {
         String email = "admin@admin.com";
         String password = faker.internet().password();
         loginPage.loginForm(email, password);
@@ -58,6 +57,7 @@ public class LoginTest extends BaseTest{
         Assert.assertEquals(loginPage.getLoginErrorMessage().getText(), "Wrong password");
         Assert.assertTrue(driver.getCurrentUrl().contains("login"));
     }
+
     @Test
     public void login() throws InterruptedException {
         String email = "admin@admin.com";

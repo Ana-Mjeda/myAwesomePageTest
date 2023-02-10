@@ -52,7 +52,7 @@ public class SignUpTest extends BaseTest {
 
     @Test
     public void signUp() throws InterruptedException {
-        String name = "Ana Meda";
+        String name = faker.name().name();
         String email = faker.internet().safeEmailAddress();
         String password = "123654";
         String confirmPassword = "123654";
