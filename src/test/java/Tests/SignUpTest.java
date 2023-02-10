@@ -39,7 +39,7 @@ public class SignUpTest extends BaseTest {
     }
 
     @Test
-    public void displayErrorsWhenUserExists() {
+    public void displayErrorWhenUserExists() {
         String name = "Test Test";
         String email = "admin@admin.com";
         String password = "123654";
@@ -48,5 +48,16 @@ public class SignUpTest extends BaseTest {
         driverWait.until(ExpectedConditions.visibilityOf(signUpPage.getSignUpErrorMessage()));
         Assert.assertEquals(signUpPage.getSignUpErrorMessage().getText(), "E-mail already exists");
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
+    }
+
+    @Test
+    public void signUp() throws InterruptedException {
+        String name = "Ana Meda";
+        String email = faker.internet().safeEmailAddress();
+        String password = "123654";
+        String confirmPassword = "123654";
+        signUpPage.fillForm(name, email, password, confirmPassword);
+        Thread.sleep(2000);
+        Assert.assertEquals(homePage.getVerifyAccountPopUp().getText(), "IMPORTANT: Verify your account");
     }
 }
