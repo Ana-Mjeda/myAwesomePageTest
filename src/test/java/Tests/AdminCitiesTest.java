@@ -41,14 +41,28 @@ public class AdminCitiesTest extends BaseTest {
         Assert.assertTrue(loginPage.isLogoutButtonVisible());
     }
     @Test
-    public void createNewCity() throws InterruptedException {
+    public void createNewCity() {
         loginPage.loginForm(email, password);
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
-        String city = faker.address().cityName();
+        //String city = faker.address().cityName();
+        String city = "East Ariane";
         adminCitiesPage.createNewCity(city);
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
-        //Thread.sleep(1000);
+        Assert.assertTrue(adminCitiesPage.getSaveMessage().getText().contains("Saved successfully"));
+    }
+
+    @Test
+    public void editCity(){
+        String city = "East Ariane";
+        loginPage.loginForm(email, password);
+        homePage.clickAdminButton();
+        homePage.clickCitiesButton();
+        adminCitiesPage.searchField(city);
+        adminCitiesPage.clickEditButton();
+        adminCitiesPage.nameInputField.sendKeys(" Edited");
+        adminCitiesPage.saveButton.click();
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
         Assert.assertTrue(adminCitiesPage.getSaveMessage().getText().contains("Saved successfully"));
     }
 }
