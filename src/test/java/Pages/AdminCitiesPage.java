@@ -29,6 +29,9 @@ public class AdminCitiesPage extends BasePage {
     @FindBy (xpath = "//*[@id=\"edit\"]/span/i")
     public WebElement editButton;
 
+    @FindBy (xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
+    public WebElement cityName;
+
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -50,5 +53,9 @@ public class AdminCitiesPage extends BasePage {
 
     public void clickEditButton(){
         editButton.click();
+    }
+
+    public WebElement getCityName() {
+        return cityName;
     }
 }

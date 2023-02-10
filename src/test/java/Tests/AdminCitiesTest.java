@@ -17,6 +17,7 @@ public class AdminCitiesTest extends BaseTest {
 
     String email = "admin@admin.com";
     String password = "12345";
+    String city = "East Ariane";
 
     @BeforeClass
     @Override
@@ -30,23 +31,19 @@ public class AdminCitiesTest extends BaseTest {
     public void beforeMethod() {
         super.beforeMethod();
         homePage.clickLogin();
+        loginPage.loginForm(email, password);
+        homePage.clickAdminButton();
+        homePage.clickCitiesButton();
     }
 
     @Test
     public void visitAdminCitiesPage(){
-        loginPage.loginForm(email, password);
-        homePage.clickAdminButton();
-        homePage.clickCitiesButton();
+
         Assert.assertTrue(driver.getCurrentUrl().contains("/admin/cities"));
         Assert.assertTrue(loginPage.isLogoutButtonVisible());
     }
     @Test
     public void createNewCity() {
-        loginPage.loginForm(email, password);
-        homePage.clickAdminButton();
-        homePage.clickCitiesButton();
-        //String city = faker.address().cityName();
-        String city = "East Ariane";
         adminCitiesPage.createNewCity(city);
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
         Assert.assertTrue(adminCitiesPage.getSaveMessage().getText().contains("Saved successfully"));
@@ -54,15 +51,16 @@ public class AdminCitiesTest extends BaseTest {
 
     @Test
     public void editCity(){
-        String city = "East Ariane";
-        loginPage.loginForm(email, password);
-        homePage.clickAdminButton();
-        homePage.clickCitiesButton();
         adminCitiesPage.searchField(city);
         adminCitiesPage.clickEditButton();
         adminCitiesPage.nameInputField.sendKeys(" Edited");
         adminCitiesPage.saveButton.click();
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
         Assert.assertTrue(adminCitiesPage.getSaveMessage().getText().contains("Saved successfully"));
+    }
+    @Test
+    public void searchCity(){
+        adminCitiesPage.searchField(city+" Edited");
+        Assert.assertEquals(adminCitiesPage.getCityName().getText(), city+" Edited");
     }
 }
