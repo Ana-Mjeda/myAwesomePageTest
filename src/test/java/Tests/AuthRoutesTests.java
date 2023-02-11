@@ -24,4 +24,10 @@ public class AuthRoutesTests extends BaseTest{
         driverWait.until(ExpectedConditions.urlContains("/login"));
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
+    @Test
+    public void unauthorizedAdminUsersPageRedirectsToLogin(){
+        driver.get("https://vue-demo.daniel-avellaneda.com/admin/users");
+        driverWait.until(ExpectedConditions.urlContains("/login"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
+    }
 }
