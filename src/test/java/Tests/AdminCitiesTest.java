@@ -2,7 +2,6 @@ package Tests;
 
 import Pages.AdminCitiesPage;
 import Pages.LoginPage;
-import Pages.SignUpPage;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
@@ -18,6 +17,8 @@ public class AdminCitiesTest extends BaseTest {
     String email = "admin@admin.com";
     String password = "12345";
     String city = "East Ariane";
+
+    String editedCity = "East Ariane Edited";
 
     @BeforeClass
     @Override
@@ -46,7 +47,7 @@ public class AdminCitiesTest extends BaseTest {
     public void createNewCity() {
         adminCitiesPage.createNewCity(city);
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
-        Assert.assertTrue(adminCitiesPage.getSaveMessage().getText().contains("Saved successfully"));
+        Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Saved successfully"));
     }
 
     @Test
@@ -56,11 +57,24 @@ public class AdminCitiesTest extends BaseTest {
         adminCitiesPage.nameInputField.sendKeys(" Edited");
         adminCitiesPage.saveButton.click();
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
-        Assert.assertTrue(adminCitiesPage.getSaveMessage().getText().contains("Saved successfully"));
+        Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Saved successfully"));
     }
     @Test
     public void searchCity(){
-        adminCitiesPage.searchField(city+" Edited");
-        Assert.assertEquals(adminCitiesPage.getCityName().getText(), city+" Edited");
+        adminCitiesPage.searchField(editedCity);
+        Assert.assertEquals(adminCitiesPage.getCityName().getText(), editedCity);
+    }
+
+    @Test
+    public void deleteCity(){
+        adminCitiesPage.searchField(editedCity);
+        Assert.assertEquals(adminCitiesPage.getCityName().getText(), editedCity);
+        adminCitiesPage.clickDeleteButton();
+
+        driverWait.until(ExpectedConditions.visibilityOf(adminCitiesPage.getWarningDelete()));
+        adminCitiesPage.clickWarningDeleteButton();
+
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+        Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Deleted successfully"));
     }
 }

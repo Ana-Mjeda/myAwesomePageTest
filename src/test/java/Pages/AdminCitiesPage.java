@@ -1,13 +1,9 @@
 package Pages;
 
-import io.netty.buffer.ByteBufHolder;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.util.List;
 
 public class AdminCitiesPage extends BasePage {
 
@@ -21,16 +17,22 @@ public class AdminCitiesPage extends BasePage {
     public WebElement saveButton;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
-    public WebElement saveMessage;
+    public WebElement popupMessage;
 
     @FindBy(id = "search")
     public WebElement searchField;
 
-    @FindBy (xpath = "//*[@id=\"edit\"]/span/i")
+    @FindBy(xpath = "//*[@id=\"edit\"]/span/i")
     public WebElement editButton;
 
-    @FindBy (xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
     public WebElement cityName;
+
+    @FindBy(xpath = "//*[@id=\"delete\"]/span/i")
+    public WebElement deleteButton;
+
+    @FindBy(xpath = "//*[@id=\"app\"]/div[5]/div/div/div[2]/button[2]/span")
+    public WebElement warningDelete;
 
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -42,20 +44,32 @@ public class AdminCitiesPage extends BasePage {
         saveButton.click();
     }
 
-    public WebElement getSaveMessage() {
-        return saveMessage;
+    public WebElement getPopupMessage() {
+        return popupMessage;
     }
 
-
-   public void searchField(String city){
+    public void searchField(String city) {
         searchField.sendKeys(city);
-   }
+    }
 
-    public void clickEditButton(){
+    public void clickEditButton() {
         editButton.click();
     }
 
     public WebElement getCityName() {
         return cityName;
     }
+
+    public void clickDeleteButton() {
+        deleteButton.click();
+    }
+
+    public WebElement getWarningDelete() {
+        return warningDelete;
+    }
+
+    public void clickWarningDeleteButton() {
+        warningDelete.click();
+    }
 }
+
