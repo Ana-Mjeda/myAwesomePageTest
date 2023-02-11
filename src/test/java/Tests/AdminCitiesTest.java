@@ -12,10 +12,13 @@ import org.testng.annotations.Test;
 public class AdminCitiesTest extends BaseTest {
 
     private LoginPage loginPage;
+
     private AdminCitiesPage adminCitiesPage;
 
     String email = "admin@admin.com";
+
     String password = "12345";
+
     String city = "East Ariane";
 
     String editedCity = "East Ariane Edited";
@@ -27,6 +30,7 @@ public class AdminCitiesTest extends BaseTest {
         loginPage = new LoginPage(driver, driverWait);
         adminCitiesPage = new AdminCitiesPage(driver, driverWait);
     }
+
     @BeforeMethod
     @Override
     public void beforeMethod() {
@@ -38,11 +42,12 @@ public class AdminCitiesTest extends BaseTest {
     }
 
     @Test
-    public void visitAdminCitiesPage(){
+    public void visitAdminCitiesPage() {
 
         Assert.assertTrue(driver.getCurrentUrl().contains("/admin/cities"));
         Assert.assertTrue(loginPage.isLogoutButtonVisible());
     }
+
     @Test
     public void createNewCity() {
         adminCitiesPage.createNewCity(city);
@@ -51,7 +56,7 @@ public class AdminCitiesTest extends BaseTest {
     }
 
     @Test
-    public void editCity(){
+    public void editCity() {
         adminCitiesPage.searchField(city);
         adminCitiesPage.clickEditButton();
         adminCitiesPage.nameInputField.sendKeys(" Edited");
@@ -59,14 +64,15 @@ public class AdminCitiesTest extends BaseTest {
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
         Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Saved successfully"));
     }
+
     @Test
-    public void searchCity(){
+    public void searchCity() {
         adminCitiesPage.searchField(editedCity);
         Assert.assertEquals(adminCitiesPage.getCityName().getText(), editedCity);
     }
 
     @Test
-    public void deleteCity(){
+    public void deleteCity() {
         adminCitiesPage.searchField(editedCity);
         Assert.assertEquals(adminCitiesPage.getCityName().getText(), editedCity);
         adminCitiesPage.clickDeleteButton();
