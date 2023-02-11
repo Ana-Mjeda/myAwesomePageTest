@@ -59,11 +59,11 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void login() throws InterruptedException {
+    public void login(){
         String email = "admin@admin.com";
         String password = "12345";
         loginPage.loginForm(email, password);
-        Thread.sleep(2000);
+        driverWait.until(ExpectedConditions.urlContains("/home"));
         Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
 
@@ -77,5 +77,7 @@ public class LoginTest extends BaseTest {
         loginPage.clickLogoutButton();
         Assert.assertTrue(driver.getCurrentUrl().contains("login"));
         driver.get(baseURL + "/home");
+        driverWait.until(ExpectedConditions.urlContains("/login"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 }
