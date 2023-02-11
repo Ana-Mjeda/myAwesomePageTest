@@ -68,7 +68,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test()
-    public void logout() throws InterruptedException {
+    public void logout() {
         String email = "admin@admin.com";
         String password = "12345";
         loginPage.loginForm(email, password);
@@ -76,6 +76,6 @@ public class LoginTest extends BaseTest {
         Assert.assertTrue(loginPage.isLogoutButtonVisible());
         loginPage.clickLogoutButton();
         Assert.assertTrue(driver.getCurrentUrl().contains("login"));
-        driver.get("https://vue-demo.daniel-avellaneda.com/home");
+        driver.get(baseURL + "/home");
     }
 }

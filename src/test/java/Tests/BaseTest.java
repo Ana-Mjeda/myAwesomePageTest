@@ -21,7 +21,7 @@ public class BaseTest {
 
     protected HomePage homePage;
 
-    protected String baseURL = "https://vue-demo.daniel-avellaneda.com/";
+    protected final String baseURL = "https://vue-demo.daniel-avellaneda.com/";
 
     @BeforeClass
     public void beforeClass() {
@@ -34,7 +34,7 @@ public class BaseTest {
 
     @BeforeMethod
     public void beforeMethod() {
-        driver.get("https://vue-demo.daniel-avellaneda.com/");
+        driver.get(baseURL);
     }
 
     @AfterClass
