@@ -22,6 +22,21 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"list-item-117\"]")
     private WebElement citiesButton;
 
+    @FindBy (className = "btnLocaleActivation")
+    private WebElement languagesButton;
+
+    @FindBy (className = "btnES")
+    private WebElement spanish;
+
+    @FindBy (className = "btnEN")
+    private WebElement english;
+
+    @FindBy (className = "btnFR")
+    private WebElement french;
+
+    @FindBy (xpath = "//*[@id=\"app\"]/div/main/div/div[2]/div/div[1]/div[1]/h1")
+    private WebElement header;
+
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -46,4 +61,37 @@ public class HomePage extends BasePage {
         citiesButton.click();
     }
 
+    public void clickLanguageButton(){
+        languagesButton.click();
+    }
+    public void chooseLanguage(Languages language) {
+
+        switch (language) {
+            case EN:
+                english.click();
+                break;
+            case ES:
+                spanish.click();
+                break;
+            case FR:
+                french.click();
+                break;
+        }
+    }
+
+    public WebElement getSpanish() {
+        return spanish;
+    }
+
+    public WebElement getEnglish() {
+        return english;
+    }
+
+    public WebElement getFrench() {
+        return french;
+    }
+
+    public WebElement getHeader() {
+        return header;
+    }
 }

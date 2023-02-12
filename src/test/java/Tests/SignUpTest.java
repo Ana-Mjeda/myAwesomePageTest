@@ -26,8 +26,8 @@ public class SignUpTest extends BaseTest {
     }
 
     @Test
-    public void visitSignUpPage() throws InterruptedException {
-        Thread.sleep(2000);
+    public void visitSignUpPage() {
+        driverWait.until(ExpectedConditions.urlContains("/signup"));
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
     }
 
@@ -57,7 +57,7 @@ public class SignUpTest extends BaseTest {
         String password = "123654";
         String confirmPassword = "123654";
         signUpPage.fillForm(name, email, password, confirmPassword);
-        Thread.sleep(2000);
+        driverWait.until(ExpectedConditions.visibilityOf(homePage.getVerifyAccountPopUp()));
         Assert.assertEquals(homePage.getVerifyAccountPopUp().getText(), "IMPORTANT: Verify your account");
     }
 }
