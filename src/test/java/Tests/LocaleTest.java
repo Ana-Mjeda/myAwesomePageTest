@@ -15,5 +15,11 @@ public class LocaleTest extends BaseTest{
         homePage.chooseLanguage(Languages.ES);
         Assert.assertTrue((homePage.getHeader().getText().contains("Página de aterrizaje")));
     }
-
+    @Test
+    public void setLocaleToEn(){
+        homePage.clickLanguageButton();
+        driverWait.until(ExpectedConditions.visibilityOf(homePage.getEnglish()));
+        homePage.chooseLanguage(Languages.EN);
+        Assert.assertTrue((homePage.getHeader().getText().contains("Landing")));
+    }
 }
