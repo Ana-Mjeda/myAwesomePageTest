@@ -22,4 +22,11 @@ public class LocaleTest extends BaseTest{
         homePage.chooseLanguage(Languages.EN);
         Assert.assertTrue((homePage.getHeader().getText().contains("Landing")));
     }
+    @Test
+    public void setLocaleToFr(){
+        homePage.clickLanguageButton();
+        driverWait.until(ExpectedConditions.visibilityOf(homePage.getFrench()));
+        homePage.chooseLanguage(Languages.FR);
+        Assert.assertTrue((homePage.getHeader().getText().contains("Page d'atterrissage")));
+    }
 }
