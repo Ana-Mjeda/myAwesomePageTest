@@ -59,7 +59,7 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    public void login(){
+    public void login() {
         String email = "admin@admin.com";
         String password = "12345";
         loginPage.loginForm(email, password);

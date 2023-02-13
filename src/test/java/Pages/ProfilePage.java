@@ -32,7 +32,7 @@ public class ProfilePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]")
     private WebElement message;
 
-    @FindBy (xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]/button/span")
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div/div[4]/div/div/div/div/div[1]/button/span")
     private WebElement closeButton;
 
     public ProfilePage(WebDriver driver, WebDriverWait driverWait) {
@@ -94,7 +94,7 @@ public class ProfilePage extends BasePage {
         return webElement.getAttribute("value");
     }
 
-    public void clickCloseButton(){
+    public void clickCloseButton() {
         closeButton.click();
     }
 }

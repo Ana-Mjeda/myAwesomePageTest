@@ -1,22 +1,22 @@
 package Tests;
 
-import Pages.HomePage;
 import Pages.LoginPage;
 import Pages.ProfilePage;
-import Pages.SignUpPage;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
-import static java.lang.Math.random;
-
 public class ProfileTest extends BaseTest {
 
     private ProfilePage profilePage;
+
     private LoginPage loginPage;
+
     String email = "admin@admin.com";
+
     String password = "12345";
+
     @BeforeClass
     @Override
     public void beforeClass() {
