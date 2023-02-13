@@ -37,6 +37,9 @@ public class HomePage extends BasePage {
     @FindBy (xpath = "//*[@id=\"app\"]/div/main/div/div[2]/div/div[1]/div[1]/h1")
     private WebElement header;
 
+    @FindBy (xpath =  "//*[@id=\"app\"]/div[1]/div/header/div/div[3]/a[3]")
+    private WebElement profileButton;
+
     public HomePage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
     }
@@ -93,5 +96,9 @@ public class HomePage extends BasePage {
 
     public WebElement getHeader() {
         return header;
+    }
+
+    public void clickProfileButton(){
+        profileButton.click();
     }
 }
