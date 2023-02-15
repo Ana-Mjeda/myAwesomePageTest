@@ -1,16 +1,15 @@
-package Tests;
+package tests;
 
-import Pages.Languages;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.Test;
+import pages.Languages;
 
 public class LocaleTest extends BaseTest {
 
     @Test
     public void setLocaleToEs() {
         homePage.clickLanguageButton();
-        driverWait.until(ExpectedConditions.visibilityOf(homePage.getSpanish()));
+        homePage.waitForSpanish();
         homePage.chooseLanguage(Languages.ES);
         Assert.assertTrue((homePage.getHeader().getText().contains("Página de aterrizaje")));
     }
@@ -18,7 +17,7 @@ public class LocaleTest extends BaseTest {
     @Test
     public void setLocaleToEn() {
         homePage.clickLanguageButton();
-        driverWait.until(ExpectedConditions.visibilityOf(homePage.getEnglish()));
+        homePage.waitForEnglish();
         homePage.chooseLanguage(Languages.EN);
         Assert.assertTrue((homePage.getHeader().getText().contains("Landing")));
     }
@@ -26,7 +25,7 @@ public class LocaleTest extends BaseTest {
     @Test
     public void setLocaleToFr() {
         homePage.clickLanguageButton();
-        driverWait.until(ExpectedConditions.visibilityOf(homePage.getFrench()));
+        homePage.waitForFrench();
         homePage.chooseLanguage(Languages.FR);
         Assert.assertTrue((homePage.getHeader().getText().contains("Page d'atterrissage")));
     }

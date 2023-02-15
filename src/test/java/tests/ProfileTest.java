@@ -1,11 +1,10 @@
-package Tests;
+package tests;
 
-import Pages.LoginPage;
-import Pages.ProfilePage;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pages.LoginPage;
+import pages.ProfilePage;
 
 public class ProfileTest extends BaseTest {
 
@@ -13,9 +12,6 @@ public class ProfileTest extends BaseTest {
 
     private LoginPage loginPage;
 
-    String email = "admin@admin.com";
-
-    String password = "12345";
 
     @BeforeClass
     @Override
@@ -28,7 +24,7 @@ public class ProfileTest extends BaseTest {
     @Test
     public void editProfile() {
         homePage.clickLogin();
-        loginPage.loginForm(email, password);
+        loginPage.loginForm(adminEmail, adminPassword);
         homePage.clickProfileButton();
         String name = faker.name().fullName();
         String phone = faker.phoneNumber().cellPhone();
@@ -38,7 +34,7 @@ public class ProfileTest extends BaseTest {
         String gitHub = "https://twitter.com/" + faker.name().username().toLowerCase();
         profilePage.editProfile(name, phone, city, country, twitter, gitHub);
 
-        driverWait.until(ExpectedConditions.visibilityOf(profilePage.getMessage()));
+        profilePage.waitForMessage();
         Assert.assertTrue(profilePage.getMessage().getText().contains("Profile saved successfuly"));
 
         profilePage.clickCloseButton();

@@ -1,15 +1,16 @@
-package Tests;
+package tests;
 
-import Pages.SignUpPage;
-import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.SignUpPage;
 
 public class SignUpTest extends BaseTest {
 
     private SignUpPage signUpPage;
+    private String password = "123654";
 
     @BeforeClass
     @Override
@@ -22,12 +23,12 @@ public class SignUpTest extends BaseTest {
     @Override
     public void beforeMethod() {
         super.beforeMethod();
-        homePage.clickSingUp();
+        homePage.clickSignUp();
     }
 
     @Test
     public void visitSignUpPage() {
-        driverWait.until(ExpectedConditions.urlContains("/signup"));
+        signUpPage.waitForSignupUrl();
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
     }
 
@@ -41,23 +42,22 @@ public class SignUpTest extends BaseTest {
     @Test
     public void displayErrorWhenUserExists() {
         String name = "Test Test";
-        String email = "admin@admin.com";
-        String password = "123654";
-        String confirmPassword = "123654";
-        signUpPage.fillForm(name, email, password, confirmPassword);
-        driverWait.until(ExpectedConditions.visibilityOf(signUpPage.getSignUpErrorMessage()));
+        signUpPage.fillForm(name, adminEmail, password, password);
+        signUpPage.waitForSignupErrorMessage();
         Assert.assertEquals(signUpPage.getSignUpErrorMessage().getText(), "E-mail already exists");
         Assert.assertTrue(driver.getCurrentUrl().contains("/signup"));
     }
 
     @Test
-    public void signUp() throws InterruptedException {
-        String name = faker.name().name();
+    public void signUp() {
+        signUpPage.waitForSignupUrl();
+
+        String name = faker.name().fullName();
         String email = faker.internet().safeEmailAddress();
-        String password = "123654";
-        String confirmPassword = "123654";
-        signUpPage.fillForm(name, email, password, confirmPassword);
-        driverWait.until(ExpectedConditions.visibilityOf(homePage.getVerifyAccountPopUp()));
-        Assert.assertEquals(homePage.getVerifyAccountPopUp().getText(), "IMPORTANT: Verify your account");
+        signUpPage.fillForm(name, email, password, password);
+        signUpPage.waitForVerifyAccountPopup();
+        Assert.assertEquals(signUpPage.getVerifyAccountPopUp().getText(), "IMPORTANT: Verify your account");
+        signUpPage.closePopUp();
+        homePage.clickLogout();
     }
 }

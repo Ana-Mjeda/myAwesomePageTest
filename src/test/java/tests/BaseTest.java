@@ -1,6 +1,5 @@
-package Tests;
+package tests;
 
-import Pages.HomePage;
 import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -8,6 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import pages.HomePage;
 
 import java.time.Duration;
 
@@ -21,7 +21,11 @@ public class BaseTest {
 
     protected HomePage homePage;
 
-    protected final String baseURL = "https://vue-demo.daniel-avellaneda.com/";
+    protected final String baseURL = "https://vue-demo.daniel-avellaneda.com";
+
+    protected final String adminEmail = "admin@admin.com";
+
+    protected final String adminPassword = "12345";
 
     @BeforeClass
     public void beforeClass() {

@@ -1,8 +1,9 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage extends BasePage {
@@ -47,6 +48,18 @@ public class LoginPage extends BasePage {
         loginButton.click();
     }
 
+    public void waitForErrorMessage() {
+        driverWait.until(ExpectedConditions.visibilityOf(getLoginErrorMessage()));
+    }
+
+    public void waitForHomeUrl() {
+        driverWait.until(ExpectedConditions.urlContains("/home"));
+    }
+
+    public void waitForLoginUrl() {
+        driverWait.until(ExpectedConditions.urlContains("/login"));
+    }
+
     public boolean isLogoutButtonVisible() {
         return logoutButton.isDisplayed();
     }
@@ -54,4 +67,5 @@ public class LoginPage extends BasePage {
     public void clickLogoutButton() {
         logoutButton.click();
     }
+
 }

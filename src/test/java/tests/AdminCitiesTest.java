@@ -1,13 +1,11 @@
-package Tests;
+package tests;
 
-import Pages.AdminCitiesPage;
-import Pages.LoginPage;
-import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.AdminCitiesPage;
+import pages.LoginPage;
 
 public class AdminCitiesTest extends BaseTest {
 
@@ -15,13 +13,13 @@ public class AdminCitiesTest extends BaseTest {
 
     private AdminCitiesPage adminCitiesPage;
 
-    String email = "admin@admin.com";
+    private static final String ADMIN_EMAIL = "admin@admin.com";
 
-    String password = "12345";
+    private static final String ADMIN_PASSWORD = "12345";
 
-    String city = "East Ariane";
+    private static final String CITY = "East Ariane";
 
-    String editedCity = "East Ariane Edited";
+    private static final String EDITED_CITY = "East Ariane Edited";
 
     @BeforeClass
     @Override
@@ -36,7 +34,7 @@ public class AdminCitiesTest extends BaseTest {
     public void beforeMethod() {
         super.beforeMethod();
         homePage.clickLogin();
-        loginPage.loginForm(email, password);
+        loginPage.loginForm(ADMIN_EMAIL, ADMIN_PASSWORD);
         homePage.clickAdminButton();
         homePage.clickCitiesButton();
     }
@@ -50,37 +48,37 @@ public class AdminCitiesTest extends BaseTest {
 
     @Test
     public void createNewCity() {
-        adminCitiesPage.createNewCity(city);
-        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+        adminCitiesPage.createNewCity(CITY);
+        adminCitiesPage.waitForPopupMessage();
         Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Saved successfully"));
     }
 
     @Test
     public void editCity() {
-        adminCitiesPage.searchField(city);
+        adminCitiesPage.searchField(CITY);
         adminCitiesPage.clickEditButton();
-        adminCitiesPage.nameInputField.sendKeys(" Edited");
-        adminCitiesPage.saveButton.click();
-        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+        adminCitiesPage.inputName(" Edited");
+        adminCitiesPage.clickSaveButton();
+        adminCitiesPage.waitForPopupMessage();
         Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Saved successfully"));
     }
 
     @Test
     public void searchCity() {
-        adminCitiesPage.searchField(editedCity);
-        Assert.assertEquals(adminCitiesPage.getCityName().getText(), editedCity);
+        adminCitiesPage.searchField(EDITED_CITY);
+        Assert.assertEquals(adminCitiesPage.getCityName().getText(), EDITED_CITY);
     }
 
     @Test
     public void deleteCity() {
-        adminCitiesPage.searchField(editedCity);
-        Assert.assertEquals(adminCitiesPage.getCityName().getText(), editedCity);
+        adminCitiesPage.searchField(EDITED_CITY);
+        Assert.assertEquals(adminCitiesPage.getCityName().getText(), EDITED_CITY);
         adminCitiesPage.clickDeleteButton();
 
-        driverWait.until(ExpectedConditions.visibilityOf(adminCitiesPage.getWarningDelete()));
+        adminCitiesPage.waitForWarningDelete();
         adminCitiesPage.clickWarningDeleteButton();
 
-        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+        adminCitiesPage.waitForPopupMessage();
         Assert.assertTrue(adminCitiesPage.getPopupMessage().getText().contains("Deleted successfully"));
     }
 }

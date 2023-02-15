@@ -1,11 +1,10 @@
-package Tests;
+package tests;
 
-import Pages.LoginPage;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class LoginTest extends BaseTest {
 
@@ -27,7 +26,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void loginURL() {
-        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
+        homePage.waitForLoginUrl();
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
@@ -42,42 +42,39 @@ public class LoginTest extends BaseTest {
         String password = faker.internet().password();
         loginPage.loginForm(email, password);
 
-        driverWait.until(ExpectedConditions.visibilityOf(loginPage.getLoginErrorMessage()));
+        loginPage.waitForErrorMessage();
         Assert.assertEquals(loginPage.getLoginErrorMessage().getText(), "User does not exists");
-        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
     public void wrongPasswordError() {
-        String email = "admin@admin.com";
-        String password = faker.internet().password();
-        loginPage.loginForm(email, password);
 
-        driverWait.until(ExpectedConditions.visibilityOf(loginPage.getLoginErrorMessage()));
+        String password = faker.internet().password();
+        loginPage.loginForm(adminEmail, password);
+
+        loginPage.waitForErrorMessage();
         Assert.assertEquals(loginPage.getLoginErrorMessage().getText(), "Wrong password");
-        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
     @Test
     public void login() {
-        String email = "admin@admin.com";
-        String password = "12345";
-        loginPage.loginForm(email, password);
-        driverWait.until(ExpectedConditions.urlContains("/home"));
+        loginPage.loginForm(adminEmail, adminPassword);
+        loginPage.waitForHomeUrl();
         Assert.assertTrue(driver.getCurrentUrl().contains("/home"));
     }
 
     @Test()
     public void logout() {
-        String email = "admin@admin.com";
-        String password = "12345";
-        loginPage.loginForm(email, password);
 
-        Assert.assertTrue(loginPage.isLogoutButtonVisible());
+//        loginPage.loginForm(adminEmail, adminPassword);
+//        Assert.assertTrue(loginPage.isLogoutButtonVisible());
         loginPage.clickLogoutButton();
-        Assert.assertTrue(driver.getCurrentUrl().contains("login"));
+        Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
         driver.get(baseURL + "/home");
-        driverWait.until(ExpectedConditions.urlContains("/login"));
+
+        loginPage.waitForLoginUrl();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 }

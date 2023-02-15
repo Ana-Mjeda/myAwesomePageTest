@@ -1,8 +1,9 @@
-package Pages;
+package pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage {
@@ -10,11 +11,11 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//*[@id=\"app\"]/div/div/header/div/div[3]/a[3]")
     private WebElement loginButton;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div/div/header/div/div[3]/a[4]/span")
-    private WebElement singUpButton;
+    @FindBy(xpath = "//span[normalize-space()='Sign Up']")
+    private WebElement signUpButton;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[4]/div/div/div[1]")
-    private WebElement verifyAccountPopUp;
+    @FindBy(className = "btnLogout")
+    private WebElement logout;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]/span")
     private WebElement adminButton;
@@ -48,12 +49,12 @@ public class HomePage extends BasePage {
         loginButton.click();
     }
 
-    public void clickSingUp() {
-        singUpButton.click();
+    public void clickSignUp() {
+        signUpButton.click();
     }
 
-    public WebElement getVerifyAccountPopUp() {
-        return verifyAccountPopUp;
+    public void clickLogout(){
+        logout.click();
     }
 
     public void clickAdminButton() {
@@ -102,4 +103,20 @@ public class HomePage extends BasePage {
     public void clickProfileButton() {
         profileButton.click();
     }
+
+    public void waitForSpanish() {
+        driverWait.until(ExpectedConditions.visibilityOf(getSpanish()));
+    }
+
+    public void waitForEnglish() {
+        driverWait.until(ExpectedConditions.visibilityOf(getEnglish()));
+    }
+
+    public void waitForFrench() {
+        driverWait.until(ExpectedConditions.visibilityOf(getFrench()));
+    }
+    public void waitForLoginUrl() {
+        driverWait.until(ExpectedConditions.urlContains("/login"));
+    }
+
 }

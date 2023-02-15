@@ -1,38 +1,40 @@
-package Pages;
+package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AdminCitiesPage extends BasePage {
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[1]/div[3]/form/div[1]/button")
-    public WebElement newItemButton;
+    private WebElement newItemButton;
 
     @FindBy(id = "name")
-    public WebElement nameInputField;
+    private WebElement nameInputField;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[5]/div/div/div[3]/button[2]/span")
-    public WebElement saveButton;
+    @FindBy(className = "btnSave")
+    private WebElement saveButton;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
-    public WebElement popupMessage;
+    private WebElement popupMessage;
 
     @FindBy(id = "search")
-    public WebElement searchField;
+    private WebElement searchField;
 
     @FindBy(xpath = "//*[@id=\"edit\"]/span/i")
-    public WebElement editButton;
+    private WebElement editButton;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[1]/div[2]/table/tbody/tr/td[2]")
-    public WebElement cityName;
+    private WebElement cityName;
 
     @FindBy(xpath = "//*[@id=\"delete\"]/span/i")
-    public WebElement deleteButton;
+    private WebElement deleteButton;
 
     @FindBy(xpath = "//*[@id=\"app\"]/div[5]/div/div/div[2]/button[2]/span")
-    public WebElement warningDelete;
+    private WebElement warningDelete;
 
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
         super(driver, driverWait);
@@ -41,6 +43,14 @@ public class AdminCitiesPage extends BasePage {
     public void createNewCity(String city) {
         newItemButton.click();
         this.nameInputField.sendKeys(city);
+        saveButton.click();
+    }
+
+    public void inputName(String name) {
+        nameInputField.sendKeys(name);
+    }
+
+    public void clickSaveButton() {
         saveButton.click();
     }
 
@@ -70,6 +80,14 @@ public class AdminCitiesPage extends BasePage {
 
     public void clickWarningDeleteButton() {
         warningDelete.click();
+    }
+
+    public void waitForPopupMessage() {
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+    }
+
+    public void waitForWarningDelete() {
+        driverWait.until(ExpectedConditions.visibilityOf(getWarningDelete()));
     }
 }
 

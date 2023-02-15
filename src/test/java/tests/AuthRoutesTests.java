@@ -1,13 +1,23 @@
-package Tests;
+package tests;
 
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import pages.LoginPage;
 
 public class AuthRoutesTests extends BaseTest {
 
+    private LoginPage loginPage;
+
+    @BeforeClass
+    @Override
+    public void beforeClass() {
+        super.beforeClass();
+        loginPage = new LoginPage(driver, driverWait);
+    }
+
     private void assertLogin() {
-        driverWait.until(ExpectedConditions.urlContains("/login"));
+        loginPage.waitForLoginUrl();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
     }
 
