@@ -25,6 +25,10 @@ public class FakerUtil {
         return FAKER.country().name();
     }
 
+    public static String getCity(){
+        return FAKER.address().city();
+    }
+
     public static String getTwitter(){
         return "https://twitter.com/" + FAKER.name().username().toLowerCase();
     }

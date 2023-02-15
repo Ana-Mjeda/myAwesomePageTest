@@ -18,8 +18,14 @@ public class AdminCitiesPage extends BasePage {
     @FindBy(className = "btnSave")
     private WebElement saveButton;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")
-    private WebElement popupMessage;
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div")
+    private WebElement popupSaveMessage;
+
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div")
+    private WebElement popupDeleteMessage;
+
+    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]/button/span")
+    private WebElement closeMessage;
 
     @FindBy(id = "search")
     private WebElement searchField;
@@ -33,7 +39,7 @@ public class AdminCitiesPage extends BasePage {
     @FindBy(xpath = "//*[@id=\"delete\"]/span/i")
     private WebElement deleteButton;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[5]/div/div/div[2]/button[2]/span")
+    @FindBy(xpath = "//*[@class='v-btn__content'][normalize-space()='Delete']")
     private WebElement warningDelete;
 
     public AdminCitiesPage(WebDriver driver, WebDriverWait driverWait) {
@@ -54,8 +60,16 @@ public class AdminCitiesPage extends BasePage {
         saveButton.click();
     }
 
-    public WebElement getPopupMessage() {
-        return popupMessage;
+    public WebElement getPopupSaveMessage() {
+        return popupSaveMessage;
+    }
+
+    public WebElement getPopupDeleteMessage() {
+        return popupDeleteMessage;
+    }
+
+    public void closeMessage() {
+        closeMessage.click();
     }
 
     public void searchField(String city) {
@@ -82,7 +96,11 @@ public class AdminCitiesPage extends BasePage {
         warningDelete.click();
     }
 
-    public void waitForPopupMessage() {
+    public void waitForSavePopupMessage() {
+        driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
+    }
+
+    public void waitForDeletePopupMessage() {
         driverWait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//*[@id=\"app\"]/div[1]/main/div/div[2]/div/div[3]/div/div/div/div/div[1]")));
     }
 

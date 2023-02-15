@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HomePage extends BasePage {
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div/div/header/div/div[3]/a[3]")
+    @FindBy(className = "btnLogin")
     private WebElement loginButton;
 
     @FindBy(xpath = "//span[normalize-space()='Sign Up']")
@@ -17,10 +17,10 @@ public class HomePage extends BasePage {
     @FindBy(className = "btnLogout")
     private WebElement logout;
 
-    @FindBy(xpath = "//*[@id=\"app\"]/div[1]/div/header/div/div[3]/button[1]/span")
+    @FindBy(className = "btnAdmin")
     private WebElement adminButton;
 
-    @FindBy(xpath = "//*[@id=\"list-item-117\"]")
+    @FindBy(className = "btnAdminCities")
     private WebElement citiesButton;
 
     @FindBy(className = "btnLocaleActivation")
@@ -120,4 +120,11 @@ public class HomePage extends BasePage {
         driverWait.until(ExpectedConditions.urlContains("/login"));
     }
 
+    public boolean isLogoutButtonVisible() {
+        return logout.isDisplayed();
+    }
+
+    public void clickLogoutButton() {
+        logout.click();
+    }
 }
