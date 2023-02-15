@@ -1,6 +1,5 @@
 package tests;
 
-import com.github.javafaker.Faker;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -17,8 +16,6 @@ public class BaseTest {
 
     protected WebDriverWait driverWait;
 
-    protected Faker faker;
-
     protected HomePage homePage;
 
     protected final String baseURL = "https://vue-demo.daniel-avellaneda.com";
@@ -32,7 +29,6 @@ public class BaseTest {
         driver = new ChromeDriver();
         driverWait = new WebDriverWait(driver, Duration.ofSeconds(20));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-        faker = new Faker();
         homePage = new HomePage(driver, driverWait);
     }
 

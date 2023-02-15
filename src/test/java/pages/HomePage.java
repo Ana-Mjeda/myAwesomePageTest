@@ -53,7 +53,7 @@ public class HomePage extends BasePage {
         signUpButton.click();
     }
 
-    public void clickLogout(){
+    public void clickLogout() {
         logout.click();
     }
 
@@ -115,6 +115,7 @@ public class HomePage extends BasePage {
     public void waitForFrench() {
         driverWait.until(ExpectedConditions.visibilityOf(getFrench()));
     }
+
     public void waitForLoginUrl() {
         driverWait.until(ExpectedConditions.urlContains("/login"));
     }

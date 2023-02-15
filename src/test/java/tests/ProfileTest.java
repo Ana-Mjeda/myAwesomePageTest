@@ -5,13 +5,13 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.ProfilePage;
+import util.FakerUtil;
 
 public class ProfileTest extends BaseTest {
 
     private ProfilePage profilePage;
 
     private LoginPage loginPage;
-
 
     @BeforeClass
     @Override
@@ -26,12 +26,12 @@ public class ProfileTest extends BaseTest {
         homePage.clickLogin();
         loginPage.loginForm(adminEmail, adminPassword);
         homePage.clickProfileButton();
-        String name = faker.name().fullName();
-        String phone = faker.phoneNumber().cellPhone();
+        String name = FakerUtil.getName();
+        String phone = FakerUtil.getPhoneNumber();
         String city = "New York";
-        String country = faker.country().name();
-        String twitter = "https://github.com/" + faker.name().username().toLowerCase();
-        String gitHub = "https://twitter.com/" + faker.name().username().toLowerCase();
+        String country = FakerUtil.getCountry();
+        String twitter = FakerUtil.getTwitter();
+        String gitHub = FakerUtil.getGitHub();
         profilePage.editProfile(name, phone, city, country, twitter, gitHub);
 
         profilePage.waitForMessage();

@@ -1,15 +1,16 @@
 package tests;
 
-import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.SignUpPage;
+import util.FakerUtil;
 
 public class SignUpTest extends BaseTest {
 
     private SignUpPage signUpPage;
+
     private String password = "123654";
 
     @BeforeClass
@@ -52,8 +53,8 @@ public class SignUpTest extends BaseTest {
     public void signUp() {
         signUpPage.waitForSignupUrl();
 
-        String name = faker.name().fullName();
-        String email = faker.internet().safeEmailAddress();
+        String name = FakerUtil.getName();
+        String email = FakerUtil.getEmail();
         signUpPage.fillForm(name, email, password, password);
         signUpPage.waitForVerifyAccountPopup();
         Assert.assertEquals(signUpPage.getVerifyAccountPopUp().getText(), "IMPORTANT: Verify your account");

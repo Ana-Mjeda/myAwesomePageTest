@@ -5,6 +5,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.LoginPage;
+import util.FakerUtil;
 
 public class LoginTest extends BaseTest {
 
@@ -38,8 +39,8 @@ public class LoginTest extends BaseTest {
 
     @Test
     public void userDoesNotExistsError() {
-        String email = faker.internet().safeEmailAddress();
-        String password = faker.internet().password();
+        String email = FakerUtil.getEmail();
+        String password = FakerUtil.getPassword();
         loginPage.loginForm(email, password);
 
         loginPage.waitForErrorMessage();
@@ -50,7 +51,7 @@ public class LoginTest extends BaseTest {
     @Test
     public void wrongPasswordError() {
 
-        String password = faker.internet().password();
+        String password = FakerUtil.getPassword();
         loginPage.loginForm(adminEmail, password);
 
         loginPage.waitForErrorMessage();
@@ -68,8 +69,8 @@ public class LoginTest extends BaseTest {
     @Test()
     public void logout() {
 
-//        loginPage.loginForm(adminEmail, adminPassword);
-//        Assert.assertTrue(loginPage.isLogoutButtonVisible());
+        loginPage.loginForm(adminEmail, adminPassword);
+        Assert.assertTrue(loginPage.isLogoutButtonVisible());
         loginPage.clickLogoutButton();
         Assert.assertTrue(driver.getCurrentUrl().contains("/login"));
         driver.get(baseURL + "/home");

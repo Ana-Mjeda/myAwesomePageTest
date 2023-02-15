@@ -29,7 +29,7 @@ public class SignUpPage extends BasePage {
     @FindBy(className = "dlgVerifyAccount")
     private WebElement verifyAccountPopUp;
 
-    @FindBy (className = "btnClose")
+    @FindBy(className = "btnClose")
     private WebElement closePopUp;
 
     public SignUpPage(WebDriver driver, WebDriverWait driverWait) {
@@ -76,7 +76,7 @@ public class SignUpPage extends BasePage {
         driverWait.until(ExpectedConditions.visibilityOf(getVerifyAccountPopUp()));
     }
 
-    public void closePopUp(){
+    public void closePopUp() {
         closePopUp.click();
     }
 }
